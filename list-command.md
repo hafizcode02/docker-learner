@@ -71,3 +71,53 @@ Why we must use the second option rather than first option, it is to make sure t
 # Creating a Limit with CPU & Memory Usage Limit
 docker container create --name "small-redist-be" --publish 127.0.0.1:8811:6379 --memory 500m --cpus 0.2 redis:latest
 ```
+
+---
+
+# Adding Env & Mounting on Docker Container
+```bash
+docker container create \
+  --name pg-bind \
+  --mount type=bind,source=/home/user/pgdata,target=/bitnami/postgresql \
+  -e POSTGRES_USER=myuser \
+  -e POSTGRES_PASSWORD=mypassword
+  -e POSTGRES_DB=mydatabase \
+  -p 5433:5432 \
+  postgres:latest
+```
+
+---
+
+# Using Volume Mounting
+```bash
+# Create volume
+docker volume create redis-data
+docker container create --name "redis-be-v2" --mount "type=volume,source=redis-data,target=/data" --publish "127.0.0.1:6373:6379" redis:latest
+```
+
+---
+
+# Docker Backup Volume
+```bash
+# Stop The Container want to backup the volume
+docker container stop redis-be-v2
+# Create the directory for saving data
+mkdir backup_data
+# Creating new Docker Container
+docker container create --name backupnginx --mount "type=bind,source=E:\Projects\learn-stuff\docker-learner\testbackup,destination=/backup" --mount "type=volume,source=redis-data,destination=/data" nginx:latest
+# Start the new Docker container
+docker container start backupnginx
+# Inspect the docker container file
+docker container exec -i -t backupnginx /bin/bash
+# Zipping the ./data folder to ./backup
+cd ./backup
+tar cvf /backup/backup.tar.gz /data
+```
+```bash
+# Creating another container and directly run the command from it
+docker pull ubuntu:latest
+docker run --rm --name ubuntubackup --mount "type=bind,source=E:\Projects\learn-stuff\docker-learner\testbackup,destination=/backup" --mount "type=volume,source=redis-data,destination=/data" ubuntu:latest tar cvf /backup/backup.tar.gz /data
+```
+
+---
+
