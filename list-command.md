@@ -51,6 +51,8 @@ docker logs -f --timestamps nginx-service
 docker container exec -i -t nginx-service /bin/bash
 ```
 
+---
+
 # Create Docker Container Port (Port Forwarding)
 
 ```bash
@@ -60,5 +62,12 @@ docker container create --name "nginx-service-public" --publish 8080:80 nginx:la
 # Create Container Image Nginx with port forwarding (publish) only in localhost 127.0.0.1:8070
 docker container create --name "nginx-service-local" --publish 127.0.0.1:8070:80 nginx:latest
 ```
-
 Why we must use the second option rather than first option, it is to make sure the service will be accessed by our local service
+
+---
+
+# Adding Resource Limit to Docker Container
+```bash
+# Creating a Limit with CPU & Memory Usage Limit
+docker container create --name "small-redist-be" --publish 127.0.0.1:8811:6379 --memory 500m --cpus 0.2 redis:latest
+```
