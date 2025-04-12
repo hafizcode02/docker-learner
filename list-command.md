@@ -55,10 +55,10 @@ docker container exec -i -t nginx-service /bin/bash
 
 ```bash
 # Create Container Image Nginx with port forwading (publish) in 0.0.0.0:8080
-docker create container --name "nginx-service-public" --publish 8080:80 nginx:latest
+docker container create --name "nginx-service-public" --publish 8080:80 nginx:latest
 
 # Create Container Image Nginx with port forwarding (publish) only in localhost 127.0.0.1:8070
-docker create container --name "nginx-service-local" --publish 127.0.0.1:8070:80 nginx:latest
+docker container create --name "nginx-service-local" --publish 127.0.0.1:8070:80 nginx:latest
 ```
 
 Why we must use the second option rather than first option, it is to make sure the service will be accessed by our local service
