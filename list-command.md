@@ -121,3 +121,9 @@ docker run --rm --name ubuntubackup --mount "type=bind,source=E:\Projects\learn-
 
 ---
 
+# Restore Volume
+```bash
+# Create new RestoreVolume
+docker volume create redist-store
+docker run --rm --name ubunturestore --mount "type=bind,source=E:\Projects\learn-stuff\docker-learner\testbackup,destination=/backup" --mount "type=volume,source=redis-data,destination=/data" ubuntu:latest bash -c "cd /data && tar xfv /backup/backup.tar.gz --strip 1"
+
