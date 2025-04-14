@@ -126,4 +126,60 @@ docker run --rm --name ubuntubackup --mount "type=bind,source=E:\Projects\learn-
 # Create new RestoreVolume
 docker volume create redist-store
 docker run --rm --name ubunturestore --mount "type=bind,source=E:\Projects\learn-stuff\docker-learner\testbackup,destination=/backup" --mount "type=volume,source=redis-data,destination=/data" ubuntu:latest bash -c "cd /data && tar xfv /backup/backup.tar.gz --strip 1"
+```
+
+---
+
+# Docker Network
+```bash
+# Check available network type
+docker network ls
+# Create new network
+docker network create --driver bridge contohnetwork
+# delete network
+docker network rm contohnetwork 
+
+# Practice
+docker pull mongo
+docker pull mongo-express
+
+docker network create --driver bridge mongonetwork
+docker container create --name mongodb --network mongonetwork --env MONGO_INITDB_ROOT_USERNAME=hafiz --env MONGO_INITDB_ROOT_PASSWORD=hafiz mongo:latest
+docker container create --name mongodbexpress --network mongonetwork --publish 127.0.0.1:8081:8081 --env ME_CONFIG_MONGODB_URL="mongodb://hafiz:hafiz@mongodb:27017/" mongo-express:latest
+docker container start mongodb
+docker container start mongodbexpress
+
+# Remove or adding Network to container
+docker network disconnect mongonetwork mongodb
+docker network connect mongonetwork mongodb
+
+```
+
+---
+
+# Docker Inspect Process / Detail
+```bash
+# Inspecting can be on Container, Images, network, volume
+docker container inspect redis-be-v2
+docker image inspect mongo
+docker network inspect mongonetwork
+docker volume inspect redis-data
+```
+
+---
+
+# Docker Prune
+use to delete any container, images, network, & volume that not used.
+```bash
+# Delete stopped container
+docker container prune
+# delate unused images
+docker image prune
+# delete unused networks
+docker network prune
+# delete unused volume
+docker volume prune
+# delete container, network, and image in a line
+docker system prune
+```
 
