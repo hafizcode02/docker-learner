@@ -74,6 +74,13 @@ docker container create --name "small-redist-be" --publish 127.0.0.1:8811:6379 -
 
 ---
 
+# Check Stats Docker
+```bash 
+docker container stats
+```
+
+---
+
 # Adding Env & Mounting on Docker Container
 ```bash
 docker container create \
