@@ -1,0 +1,14 @@
+services:
+  redis-mini:
+    container_name: redis-mini
+    image: redis:latest
+    ports:
+      - "6330:6379"
+  nginx-mini:
+    container_name: nginx-mini
+    image: nginx:latest
+    ports:
+      - protocol: tcp
+        target: 80
+        published: 8080
+        mode: host
