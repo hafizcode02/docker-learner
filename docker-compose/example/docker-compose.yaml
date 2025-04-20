@@ -1,0 +1,13 @@
+# it can't run the container that create from the docker-cli, just can run that create from docker-compose
+# also if you want to add container, you must suggest to down the docker-compose first and then up
+
+services:
+  nginx-example:
+    container_name: nginx-example
+    image: nginx:latest
+  nginx-example2:
+    container_name: nginx-example2
+    image: nginx:latest
+  standart-redis: # it doesn't work because its not create by docker-compose
+    container_name: standart-redis
+    image: redis:latest
