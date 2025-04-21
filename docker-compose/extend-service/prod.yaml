@@ -1,0 +1,6 @@
+# Merging yaml file
+
+services:
+  app:
+    environment:
+      - "MODE=prod"
