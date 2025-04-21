@@ -1,0 +1,17 @@
+services:
+  mongodb-example:
+    image: mongo:latest
+    container_name: mongodb-example
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hafigo
+      MONGO_INITDB_ROOT_PASSWORD: hafigo
+      MONGO_INITDB_DATABASE: admin
+    networks:
+      - network_example
+
+networks:
+  network_example: # will not created if you not define on the services
+    name: network_example
+    driver: bridge

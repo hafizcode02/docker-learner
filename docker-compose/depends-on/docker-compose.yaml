@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+
+  mongodb-example:
+    image: mongo:latest
+    container_name: mongodb-example
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hafigo
+      MONGO_INITDB_ROOT_PASSWORD: hafigo
+      MONGO_INITDB_DATABASE: admin
+    networks:
+      - network_example
+
+  mongodb-express-example:
+    image: mongo-express:latest
+    container_name: mongodb-express-example
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: hafigo
+      ME_CONFIG_MONGODB_ADMINPASSWORD: hafigo
+      ME_CONFIG_MONGODB_SERVER: mongodb-example
+    networks:
+      - network_example
+    depends_on: # wait for mongodb-example to be created then start mongodb-express-example
+      - mongodb-example
+
+networks: # will not created if you not define on the services and if you not create the network, it will be using default_network
+  network_example:
+    name: network_example
+    driver: bridge
