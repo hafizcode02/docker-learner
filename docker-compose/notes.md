@@ -8,6 +8,8 @@
 
 **docker compose start** = run the container
 
+**docker compose stop** = stop the container
+
 **docker compose ps** = see whats the container running
 
 **docker compose ls** = see whats docker compose file running and where the location.

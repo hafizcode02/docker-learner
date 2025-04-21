@@ -1,0 +1,1 @@
+kalo mau atau ada update di project better buat rebuild dulu docker image yang udah dibuat.
