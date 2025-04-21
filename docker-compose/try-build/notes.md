@@ -1,1 +1,1 @@
-kalo mau atau ada update di project better buat rebuild dulu docker image yang udah dibuat.
+kalau ada perubahaan di project, jangan langsung pake **docker compose up**, rebuild dulu docker imagenya pagi **docker compose build**
