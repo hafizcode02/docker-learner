@@ -1,0 +1,17 @@
+services:
+  app:
+    container_name: app-health
+    build:
+      context: "./app"
+      dockerfile: Dockerfile
+    image: "app-health-golang:1.0.0"
+    environment:
+      - "APP_PORT=8080"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 5s # setiap 5 detik
+      timeout: 5s # menunggu 5 detik untuk mendapatkan respon
+      retries: 3 # mencoba 3 kali 
+      start_period: 5s # menunggu 5 detik sebelum memulai healthcheck
