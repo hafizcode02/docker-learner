@@ -1,4 +1,4 @@
-version: "3.8"
+# restart attribute : always (restart if container stopped), unless-stopped (always restart container), no(default), on-failure (restart only if container stopped with error)
 
 services:
 
@@ -17,7 +17,7 @@ services:
   mongodb-express-example:
     image: mongo-express:latest
     container_name: mongodb-express-example
-    restart: always
+    restart: always # always restart if container stopped
     ports:
       - "8081:8081"
     environment:
