@@ -1,0 +1,39 @@
+# so the main different of volume and you using bind mount is like bind 
+# mount is like you are using some storage in your host machine as a volume
+# and volume is like you are creating dedicated storage to docker machine as a volume
+
+services:
+  mongodb1:
+    image: mongo:latest
+    container_name: mongodb1
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hafigo
+      MONGO_INITDB_ROOT_PASSWORD: hafigo
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - "mongo-data1:/data/db"
+  mongodb2:
+    image: mongo:latest
+    container_name: mongodb2
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hafigo
+      MONGO_INITDB_ROOT_PASSWORD: hafigo
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - type: volume
+        source: mongo-data2
+        target: "/data/db"
+        read_only: false
+
+volumes: # will not create after you define it in the volumes section
+  mongo-data1:
+    name: mongo-data1
+  mongo-data2:
+    name: mongo-data2
+
+# docker volume will not deleted by using docker-compose down
+# its because for avoiding accidental deletion of data
